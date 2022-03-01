@@ -1,4 +1,4 @@
-package chapter1.problem1;
+package chapter1.problem3;
 
 import java.io.BufferedReader;
 import java.io.IOException;

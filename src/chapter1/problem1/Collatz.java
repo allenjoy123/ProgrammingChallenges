@@ -19,7 +19,6 @@ public class Collatz {
         // but a member of a cycle could possibly overflow a 32-bit integer value
         HashMap<Long, Integer> surplus = new HashMap<>();
         // calculate for all numbers the cycle-length of each number
-        int cycleLenTotal = 0;
         cycleLengths[0] = 1;
         for (int member = 2; member <= MAX; member++) {
             long n = member;
@@ -34,7 +33,6 @@ public class Collatz {
                 }
                 n = n % 2 == 0 ? n / 2 : n * 3 + 1;
             }
-            cycleLenTotal = cycleStack.size() + cycleLength;
             while (!cycleStack.isEmpty()) {
                 setCycleLength(cycleStack.pop(), cycleLength++, surplus);
             }
