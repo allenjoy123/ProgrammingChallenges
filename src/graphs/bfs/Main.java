@@ -67,6 +67,8 @@ class Main
         }
 
         printGraph(graph);
+        BFS bfs = new BFS();
+        bfs.bfs(graph, 1);
     }
 
     private
