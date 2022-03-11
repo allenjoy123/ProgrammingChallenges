@@ -1,32 +1,33 @@
-package graphs.bfs;
+package graphs.dfs;
 
 import graphs.Graph;
 
-import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Stack;
 
 public
-class BFS {
+class DFS {
     private int[] parent;
-    public BFS(Graph graph, int start) {
+    public
+    DFS(Graph graph, int start) {
         boolean[] discovered = new boolean[graph.nvertices+1];
         boolean[] processed = new boolean[graph.nvertices+1];
         parent = new int[graph.nvertices+1];
         initializeSearch(graph, discovered, processed, parent);
-        Queue<Integer> queue = new PriorityQueue<>();
-        queue.add(start);
+        Stack<Integer> queue = new Stack<>();
+        queue.push(start);
         discovered[start] = true;
         discoveredVertex(start);
 
         while (!queue.isEmpty()) {
-            int vertex = queue.poll();
+            int vertex = queue.pop();
             processVertex(vertex);
             processed[vertex] = true;
             for (int j = 0; j < graph.degree[vertex]; j++) {
                 int adjVertex = graph.edges[vertex][j];
                 if(!discovered[adjVertex]){
-                    queue.add(adjVertex);
+                    queue.push(adjVertex);
                     discovered[adjVertex] = true;
                     discoveredVertex(adjVertex);
                     if(parent[adjVertex] == -1){
@@ -55,12 +56,6 @@ class BFS {
                 break;
             }
             index++;
-        }
-
-        if (start != root) {
-            System.out.println("The shortest path tree obtained from BFS is only useful if BFS was performed with " +
-                               "'start' as the root of the search.");
-            return;
         }
 
         if (start == end || end == -1) {

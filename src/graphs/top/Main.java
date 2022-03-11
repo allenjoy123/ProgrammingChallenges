@@ -1,13 +1,11 @@
-package graphs.bfs;// @JUDGE_ID:  1272379  706  Java  "Easy algorithm"
+package graphs.top;// @JUDGE_ID:  1272379  706  Java  "Easy algorithm"
 
 import graphs.Graph;
+import graphs.dfs.DFSRecursive;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.StringTokenizer;
-import java.util.stream.Stream;
 
 class Main
 {
@@ -50,9 +48,9 @@ class Main
         int lineNumber = 0;
         int m =0; // number of edges
         int x, y; // vertices in edge (x,y)
-        Graph graph = new Graph();
+        DAGraph graph = new DAGraph();
         
-        boolean directed = false;
+        boolean directed = true;
         while ((input = Main.ReadLn (255)) != null)
         {
             ++lineNumber;
@@ -71,15 +69,21 @@ class Main
         }
 
         printGraph(graph);
-        BFS bfs = new BFS(graph, 1);
-        System.out.printf("Shortest path from %d to %d %n", 1, 16);
-        bfs.printShortestPathToRoot(1, 16);
-        System.out.println();
-        bfs.printShortestPathToRoot(6, 16);
+//        DFS dfs = new DFS(graph, 1);
+//        System.out.printf("Shortest path from %d to %d %n", 1, 16);
+//        dfs.printShortestPathToRoot(1, 16);
+//        System.out.println();
+//        dfs.printShortestPathToRoot(6, 16);
+//        DFSRecursive dfsRecursive = new DFSRecursive(graph);
+//        dfsRecursive.dfsRecursive(graph, 1);
+        TopSort topSort = new TopSort();
+        int[] topologicalSort = topSort.createTopologicalSort(graph);
+        System.out.println(Arrays.toString(topologicalSort));
+       // Arrays.stream(topologicalSort).forEach(System.out::println);
     }
 
     private
-    void printGraph(Graph graph) {
+    void printGraph(DAGraph graph) {
         for (int
              i
              = 1; i <= graph.nvertices; i++) {
@@ -99,7 +103,7 @@ class Main
     }
 
     private
-    void insertEdge(Graph graph, int x, int y, boolean directed) {
+    void insertEdge(DAGraph graph, int x, int y, boolean directed) {
         if (graph.degree[x] >= Graph.MAXDEGREE) {
             System.out.println("Warning: insertion exceeds max degree");
         }
@@ -107,7 +111,7 @@ class Main
         graph.edges[x][vertexDegree] =y;
         graph.degree[x] = ++vertexDegree;
 
-        if (directed == false) {
+        if (!directed) {
             insertEdge(graph, y, x, true);
         } else{
             graph.nedges++;
