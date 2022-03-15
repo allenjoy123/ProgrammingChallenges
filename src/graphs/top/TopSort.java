@@ -53,7 +53,6 @@ class TopSort {
         }
         for (int i = 1; i < graph.nvertices; i++) {
             for (int j = 0; j < graph.degree[i]; j++) {
-                indegree[graph.edges[i][j]] = 0;
                 indegree[graph.edges[i][j]]++;
             }
         }

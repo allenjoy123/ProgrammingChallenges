@@ -73,9 +73,10 @@ class Main
 //        System.out.printf("Shortest path from %d to %d %n", 1, 16);
 //        dfs.printShortestPathToRoot(1, 16);
 //        System.out.println();
-//        dfs.printShortestPathToRoot(6, 16);
+        
         DFSRecursive dfsRecursive = new DFSRecursive(graph);
         dfsRecursive.dfsRecursive(graph, 1);
+        dfsRecursive.printShortestPathToRoot(1, 16);
     }
 
     private
